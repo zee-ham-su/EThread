@@ -23,3 +23,9 @@
 5. Set up and start your mongoDB.
 6. Start the app, *run* ```..EThread/Thread# npm start```
 7. ![ScreenShot_20240326224441](https://github.com/zee-ham-su/EThread/assets/125477741/0ed146e9-5578-472e-9fee-114bc518e77c)
+
+## FEATURES
+1. Products: create, update and delete.
+2. Cart: create, update and delete.
+3. Checkout
+4. Review: create, update and delete.
