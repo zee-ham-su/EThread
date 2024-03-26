@@ -25,6 +25,11 @@ app.use('/api/carts', cartRoutes);
 app.use('/api/reviews', reviewRoutes);
 app.use('/api/checkouts', checkOutRoutes);
 
+
+app.get('/', (req, res) => {
+  res.send('Welcome to TechThread Rest API using MongoDB, ExpressJs!');
+});
+
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send('Something broke!');
