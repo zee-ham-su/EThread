@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import mongoose from "mongoose";
-import { connectDB } from "../mondb";
+import { connectDB } from "../../mondb";
 
 describe("connectDB", () => {
   it("should connect to MongoDB successfully", async () => {
