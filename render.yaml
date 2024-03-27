@@ -1,0 +1,13 @@
+# Exported from Render on 2024-03-26T13:22:55Z
+services:
+- type: web
+  name: EThreadgh
+  runtime: node
+  repo: https://github.com/zee-ham-su/EThread
+  branch: Master
+  plan: free
+  region: oregon
+  buildCommand: npm install
+  startCommand: ' npm start'
+  rootDir: .
+version: "1"
