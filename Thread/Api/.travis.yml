@@ -1,1 +1,12 @@
 language: node.js
+
+install:
+- npm install newman
+
+before_script:
+- node --version
+- npm --version
+- node_modules/.bin/newman --version
+
+script:
+- node_modules/.bin/newman run tests/Ethread.postman_collection.json.json
