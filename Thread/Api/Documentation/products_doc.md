@@ -131,3 +131,132 @@
     ]
 }
 ```
+
+## API Description
+
+- This API allows you to retrieve details of a specific product by its ID from the TechThreadsGhana e-commerce platform.
+
+## Resource Description
+
+- Get Product by ID
+- This endpoint retrieves details of a specific product by its ID.
+
+## Endpoints and Methods
+
+- URL: <https://ethread.onrender.com/api/products/:productId>
+- Method: GET
+
+## Parameters
+
+- productId (string): The ID of the product to retrieve.
+
+## Request Example
+
+- This endpoint does not require a request body.
+
+## Response Example and Schema
+
+- Content-Type: application/json
+
+```json
+{
+    "_id": "6601c681ca8319e517afddfc",
+    "name": "Kente Cloth",
+    "description": "Vibrant Ghanaian textile with intricate patterns, rich cultural significance, and historical importance.",
+    "price": 70.85,
+    "image": "public/images/1711392385728_kente cloth.jpg",
+    "quantity": 5,
+    "createdAt": "2024-03-25T18:46:25.790Z",
+    "updatedAt": "2024-03-26T11:42:19.513Z",
+    "__v": 0
+}
+```
+
+## API Description
+
+- This API allows you to update a specific product in the TechThreadsGhana e-commerce platform.
+
+## Resource Description
+
+- Update Product
+- This endpoint updates a specific product by its ID.
+
+## Endpoints and Methods
+
+- URL: <https://ethread.onrender.com/api/products/:productId>
+- Method: PUT
+
+## Parameters
+
+- productId (string): The ID of the product to update.
+
+## Request Body
+
+- The request body should be in raw format with the following 
+parameters:
+- price (number): The updated price of the product.
+- quantity (number): The updated quantity of the product.
+
+## Request Example
+
+```json
+{
+    "price": 75.99,
+    "quantity": 8
+}
+```
+
+## Response Example and Schema
+
+- Status: 200
+- Content-Type: application/json
+
+```json
+{
+  "msg": "Product updated successfully",
+  "product": {
+    "_id": "6601c681ca8319e517afddfc",
+    "name": "Kente Cloth",
+    "description": "Vibrant Ghanaian textile with intricate patterns, rich cultural significance, and historical importance.",
+    "price": 75.99,
+    "image": "public/images/1711392385728_kente cloth.jpg",
+    "quantity": 8,
+    "createdAt": "2024-03-25T18:46:25.790Z",
+    "updatedAt": "2024-03-26T11:42:19.513Z",
+    "__v": 0
+  }
+}
+```
+
+## API Description
+
+- This API allows you to delete a specific product from the TechThreadsGhana e-commerce platform.
+
+## Resource Description
+
+- Delete Product
+- This endpoint deletes a specific product by its ID.
+
+## Endpoints and Methods
+
+- URL: <https://ethread.onrender.com/api/products/:productId>
+- Method: DELETE
+
+## Parameters
+
+- productId (string): The ID of the product to delete.
+
+## Request Example
+
+- This endpoint does not require a request body.
+
+## Response Example and Schema
+
+- Status: 200
+- Content-Type: application/json
+
+```json
+{
+  "msg": "Product deleted successfully"
+}
+```
