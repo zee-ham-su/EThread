@@ -25,11 +25,18 @@ app.use('/api/carts', cartRoutes);
 app.use('/api/reviews', reviewRoutes);
 app.use('/api/checkouts', checkOutRoutes);
 
+
+app.get('/', (req, res) => {
+  res.send('Welcome to TechThread Rest API using MongoDB, ExpressJs!');
+});
+
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send('Something broke!');
 });
 
-app.listen(3000, () => {
-  console.log('TechThread app listening on port 3000!');
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log('TechThread app listening ${port}!');
 });
