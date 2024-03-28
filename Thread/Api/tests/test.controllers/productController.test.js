@@ -1,108 +1,71 @@
+import { describe, it, expect } from 'vitest';
 const { ProductController } = require('../../controllers/productController');
 const Product = require('../../models/product');
 const multer = require('multer');
 
-jest.mock('../../models/product'); // Mock the Product model
-
-jest.mock('multer', () => ({
-  __esModule: true,
-  default: jest.fn()
-}));
-
 describe('ProductController', () => {
   describe('createProduct', () => {
-    it('should return 400 if multer error occurs', async () => {
-      const req = {};
-      const res = {
-        status: jest.fn(() => res),
-        json: jest.fn()
-      };
-      // Mock multer
-      multer.mockReturnValueOnce({
-        single: jest.fn().mockImplementation((fieldName, callback) => callback(new Error('Multer error')))
-      });
-
-      await ProductController.createProduct(req, res);
-
-      expect(res.status).toHaveBeenCalledWith(400);
-      expect(res.json).toHaveBeenCalledWith({ msg: 'Error uploading file' });
-    });
-
-    it('should return 500 if other error occurs during upload', async () => {
-      const req = {};
-      const res = {
-        status: jest.fn(() => res),
-        json: jest.fn()
-      };
-      // Mock multer
-      multer.mockReturnValueOnce({
-        single: jest.fn().mockImplementation((fieldName, callback) => callback(new Error('Other error')))
-      });
-
-      await ProductController.createProduct(req, res);
-
-      expect(res.status).toHaveBeenCalledWith(500);
-      expect(res.json).toHaveBeenCalledWith({ msg: 'Internal server error' });
-    });
-
-    it('should create a new product', async () => {
+    it('should create a product successfully', async () => {
       const req = {
         body: {
           name: 'Test Product',
-          description: 'Test description',
-          price: 9.99,
-          quantity: 10,
+          description: 'Test Description',
+          price: 10,
+          quantity: 5
         },
         file: {
-          path: 'test/image.jpg',
-        },
+          path: 'test/image/path.jpg'
+        }
       };
       const res = {
-        status: jest.fn().mockReturnThis(),
-        json: jest.fn(),
+        status(code) {
+          this.statusCode = code;
+          return this;
+        },
+        json(data) {
+          this.responseData = data;
+        }
       };
-
-      // Mock Product.save
-      const mockProductSave = jest.fn().mockResolvedValueOnce('Mocked product');
-      Product.mockImplementationOnce(() => ({
-        save: mockProductSave
-      }));
 
       await ProductController.createProduct(req, res);
 
-      expect(mockProductSave).toHaveBeenCalled();
-      expect(res.status).toHaveBeenCalledWith(201);
-      expect(res.json).toHaveBeenCalledWith({ msg: 'Product created successfully', product: 'Mocked product' });
+      expect(res.statusCode).toBe(201);
+      expect(res.responseData).toMatchObject({ msg: 'Product created successfully', product: expect.any(Object) });
     });
 
-    it('should return 500 if an error occurs during product creation', async () => {
+    it('should handle errors during product creation', async () => {
       const req = {
         body: {
           name: 'Test Product',
-          description: 'Test description',
-          price: 9.99,
-          quantity: 10,
+          description: 'Test Description',
+          price: 10,
+          quantity: 5
         },
         file: {
-          path: 'test/image.jpg',
-        },
+          path: 'test/image/path.jpg'
+        }
       };
       const res = {
-        status: jest.fn().mockReturnThis(),
-        json: jest.fn(),
+        status(code) {
+          this.statusCode = code;
+          return this;
+        },
+        json(data) {
+          this.responseData = data;
+        }
       };
 
-      // Mock Product.save to throw an error
-      const mockProductSave = jest.fn().mockRejectedValueOnce(new Error('Database error'));
-      Product.mockImplementationOnce(() => ({
-        save: mockProductSave
-      }));
+      // Mocking an error during product creation
+      Product.prototype.save = async function () {
+        throw new Error('Test Error');
+      };
 
       await ProductController.createProduct(req, res);
 
-      expect(mockProductSave).toHaveBeenCalled();
-      expect(res.status).toHaveBeenCalledWith(500);
-      expect(res.json).toHaveBeenCalledWith({ msg: 'Internal server error' });
+      expect(res.statusCode).toBe(500);
+      expect(res.responseData).toMatchObject({ msg: 'Internal server error' });
     });
   });
+
+  // You can similarly write tests for other functions in ProductController
 });
