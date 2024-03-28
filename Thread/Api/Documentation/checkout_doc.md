@@ -37,3 +37,8 @@
     "message": ""
 }
 ```
+
+## Error Handling
+
+- 400 Bad Request: If the request body is missing or invalid.
+- 500 Internal Server Error: If there is a server error while processing the request.
