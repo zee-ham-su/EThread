@@ -1,53 +1,34 @@
-import { describe, beforeAll, afterAll, it, expect } from "vitest";
-import { validationResult } from 'express-validator';
-import Cart from '../../models/cart';
-import checkoutController from '../../controllers/checkoutController';
+const { validationResult } = require('express-validator');
+const checkoutController = require('../../controllers/checkoutController');
+const Cart = require('../../models/cart');
+
+jest.mock('express-validator');
 
 describe('checkoutController', () => {
-  // Connect to the MongoDB database before running tests
-  beforeAll(async () => {
-    // Add your database connection setup here
-  });
-
-  // Disconnect from the MongoDB database after running tests
-  afterAll(async () => {
-    // Add your database connection teardown here
-  });
-
   describe('processCheckout', () => {
-    it('should return 400 if request data is invalid', async () => {
-      const req = {
-        body: {},
-      };
+    it('should return 400 if validation fails', async () => {
+      const req = { body: {} };
       const res = {
-        status: jest.fn().mockReturnThis(),
-        json: jest.fn(),
+        status: jest.fn(() => res),
+        json: jest.fn()
       };
-      validationResult.mockReturnValueOnce({
-        isEmpty: () => false,
-        array: () => ['Invalid data'],
-      });
+      validationResult.mockReturnValueOnce({ isEmpty: () => false, array: () => [{ msg: 'Validation error' }] });
 
       await checkoutController.processCheckout(req, res);
 
       expect(res.status).toHaveBeenCalledWith(400);
-      expect(res.json).toHaveBeenCalledWith({ errors: ['Invalid data'] });
+      expect(res.json).toHaveBeenCalledWith({ errors: [{ msg: 'Validation error' }] });
     });
 
     it('should return 404 if cart is not found', async () => {
-      const req = {
-        body: {
-          cartId: 'nonexistent-cart-id',
-        },
-      };
+      const req = { body: { cartId: 'nonexistentId' } };
       const res = {
-        status: jest.fn().mockReturnThis(),
-        json: jest.fn(),
+        status: jest.fn(() => res),
+        json: jest.fn()
       };
-      validationResult.mockReturnValueOnce({
-        isEmpty: () => true,
-      });
-      Cart.findById.mockResolvedValueOnce(null);
+      validationResult.mockReturnValueOnce({ isEmpty: () => true });
+
+      Cart.findById = jest.fn().mockResolvedValueOnce(null);
 
       await checkoutController.processCheckout(req, res);
 
@@ -56,46 +37,33 @@ describe('checkoutController', () => {
     });
 
     it('should update cart and return 200 if checkout is successful', async () => {
-      const req = {
-        body: {
-          cartId: 'valid-cart-id',
-        },
-      };
+      const req = { body: { cartId: 'existingId' } };
       const res = {
-        status: jest.fn().mockReturnThis(),
-        json: jest.fn(),
+        status: jest.fn(() => res),
+        json: jest.fn()
       };
-      validationResult.mockReturnValueOnce({
-        isEmpty: () => true,
-      });
-      const cart = {
-        checkedOut: false,
-        save: jest.fn(),
-      };
-      Cart.findById.mockResolvedValueOnce(cart);
+      validationResult.mockReturnValueOnce({ isEmpty: () => true });
+
+      const existingCart = { _id: 'existingId', checkedOut: false, save: jest.fn() };
+      Cart.findById = jest.fn().mockResolvedValueOnce(existingCart);
 
       await checkoutController.processCheckout(req, res);
 
-      expect(cart.checkedOut).toBe(true);
-      expect(cart.save).toHaveBeenCalled();
+      expect(existingCart.checkedOut).toBe(true);
+      expect(existingCart.save).toHaveBeenCalled();
       expect(res.status).toHaveBeenCalledWith(200);
       expect(res.json).toHaveBeenCalledWith({ success: true, message: 'Checkout successful' });
     });
 
-    it('should return 500 if an error occurs during checkout', async () => {
-      const req = {
-        body: {
-          cartId: 'valid-cart-id',
-        },
-      };
+    it('should return 500 if an internal server error occurs', async () => {
+      const req = { body: { cartId: 'existingId' } };
       const res = {
-        status: jest.fn().mockReturnThis(),
-        json: jest.fn(),
+        status: jest.fn(() => res),
+        json: jest.fn()
       };
-      validationResult.mockReturnValueOnce({
-        isEmpty: () => true,
-      });
-      Cart.findById.mockRejectedValueOnce(new Error('Database error'));
+      validationResult.mockReturnValueOnce({ isEmpty: () => true });
+
+      Cart.findById = jest.fn().mockRejectedValueOnce(new Error('Internal server error'));
 
       await checkoutController.processCheckout(req, res);
 
