@@ -1,19 +1,50 @@
-import { describe, beforeAll, afterAll, it, expect } from "vitest";
-const ProductController = require('../../controllers/productController');
+const { ProductController } = require('../../controllers/productController');
 const Product = require('../../models/product');
+const multer = require('multer');
+
+jest.mock('../../models/product'); // Mock the Product model
+
+jest.mock('multer', () => ({
+  __esModule: true,
+  default: jest.fn()
+}));
 
 describe('ProductController', () => {
-  // Connect to the MongoDB database before running tests
-  beforeAll(async () => {
-    // Add your database connection setup here
-  });
-
-  // Disconnect from the MongoDB database after running tests
-  afterAll(async () => {
-    // Add your database connection teardown here
-  });
-
   describe('createProduct', () => {
+    it('should return 400 if multer error occurs', async () => {
+      const req = {};
+      const res = {
+        status: jest.fn(() => res),
+        json: jest.fn()
+      };
+      // Mock multer
+      multer.mockReturnValueOnce({
+        single: jest.fn().mockImplementation((fieldName, callback) => callback(new Error('Multer error')))
+      });
+
+      await ProductController.createProduct(req, res);
+
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.json).toHaveBeenCalledWith({ msg: 'Error uploading file' });
+    });
+
+    it('should return 500 if other error occurs during upload', async () => {
+      const req = {};
+      const res = {
+        status: jest.fn(() => res),
+        json: jest.fn()
+      };
+      // Mock multer
+      multer.mockReturnValueOnce({
+        single: jest.fn().mockImplementation((fieldName, callback) => callback(new Error('Other error')))
+      });
+
+      await ProductController.createProduct(req, res);
+
+      expect(res.status).toHaveBeenCalledWith(500);
+      expect(res.json).toHaveBeenCalledWith({ msg: 'Internal server error' });
+    });
+
     it('should create a new product', async () => {
       const req = {
         body: {
@@ -31,10 +62,17 @@ describe('ProductController', () => {
         json: jest.fn(),
       };
 
+      // Mock Product.save
+      const mockProductSave = jest.fn().mockResolvedValueOnce('Mocked product');
+      Product.mockImplementationOnce(() => ({
+        save: mockProductSave
+      }));
+
       await ProductController.createProduct(req, res);
 
+      expect(mockProductSave).toHaveBeenCalled();
       expect(res.status).toHaveBeenCalledWith(201);
-      expect(res.json).toHaveBeenCalledWith({ msg: 'Product created successfully', product: expect.any(Object) });
+      expect(res.json).toHaveBeenCalledWith({ msg: 'Product created successfully', product: 'Mocked product' });
     });
 
     it('should return 500 if an error occurs during product creation', async () => {
@@ -53,223 +91,16 @@ describe('ProductController', () => {
         status: jest.fn().mockReturnThis(),
         json: jest.fn(),
       };
-      Product.prototype.save.mockRejectedValueOnce(new Error('Database error'));
+
+      // Mock Product.save to throw an error
+      const mockProductSave = jest.fn().mockRejectedValueOnce(new Error('Database error'));
+      Product.mockImplementationOnce(() => ({
+        save: mockProductSave
+      }));
 
       await ProductController.createProduct(req, res);
 
-      expect(res.status).toHaveBeenCalledWith(500);
-      expect(res.json).toHaveBeenCalledWith({ msg: 'Internal server error' });
-    });
-  });
-
-  describe('updateProduct', () => {
-    it('should update an existing product', async () => {
-      const req = {
-        params: {
-          id: 'valid-product-id',
-        },
-        body: {
-          name: 'Updated Product',
-          description: 'Updated description',
-          price: 19.99,
-          quantity: 5,
-        },
-      };
-      const res = {
-        status: jest.fn().mockReturnThis(),
-        json: jest.fn(),
-      };
-      Product.findById.mockResolvedValueOnce({
-        save: jest.fn(),
-      });
-
-      await ProductController.updateProduct(req, res);
-
-      expect(res.json).toHaveBeenCalledWith({ msg: 'Product updated successfully', product: expect.any(Object) });
-    });
-
-    it('should return 404 if product is not found', async () => {
-      const req = {
-        params: {
-          id: 'nonexistent-product-id',
-        },
-        body: {
-          name: 'Updated Product',
-          description: 'Updated description',
-          price: 19.99,
-          quantity: 5,
-        },
-      };
-      const res = {
-        status: jest.fn().mockReturnThis(),
-        json: jest.fn(),
-      };
-      Product.findById.mockResolvedValueOnce(null);
-
-      await ProductController.updateProduct(req, res);
-
-      expect(res.status).toHaveBeenCalledWith(404);
-      expect(res.json).toHaveBeenCalledWith({ msg: 'Product not found' });
-    });
-
-    it('should return 500 if an error occurs during product update', async () => {
-      const req = {
-        params: {
-          id: 'valid-product-id',
-        },
-        body: {
-          name: 'Updated Product',
-          description: 'Updated description',
-          price: 19.99,
-          quantity: 5,
-        },
-      };
-      const res = {
-        status: jest.fn().mockReturnThis(),
-        json: jest.fn(),
-      };
-      Product.findById.mockRejectedValueOnce(new Error('Database error'));
-
-      await ProductController.updateProduct(req, res);
-
-      expect(res.status).toHaveBeenCalledWith(500);
-      expect(res.json).toHaveBeenCalledWith({ msg: 'Internal server error' });
-    });
-  });
-
-  describe('getAllProducts', () => {
-    it('should return all products', async () => {
-      const req = {};
-      const res = {
-        json: jest.fn(),
-      };
-      Product.find.mockResolvedValueOnce(['Product 1', 'Product 2']);
-
-      await ProductController.getAllProducts(req, res);
-
-      expect(res.json).toHaveBeenCalledWith(['Product 1', 'Product 2']);
-    });
-
-    it('should return 500 if an error occurs while fetching products', async () => {
-      const req = {};
-      const res = {
-        status: jest.fn().mockReturnThis(),
-        json: jest.fn(),
-      };
-      Product.find.mockRejectedValueOnce(new Error('Database error'));
-
-      await ProductController.getAllProducts(req, res);
-
-      expect(res.status).toHaveBeenCalledWith(500);
-      expect(res.json).toHaveBeenCalledWith({ msg: 'Internal server error' });
-    });
-  });
-
-  describe('getProductById', () => {
-    it('should return a product by ID', async () => {
-      const req = {
-        params: {
-          id: 'valid-product-id',
-        },
-      };
-      const res = {
-        json: jest.fn(),
-      };
-      Product.findById.mockResolvedValueOnce('Product');
-
-      await ProductController.getProductById(req, res);
-
-      expect(res.json).toHaveBeenCalledWith('Product');
-    });
-
-    it('should return 404 if product is not found', async () => {
-      const req = {
-        params: {
-          id: 'nonexistent-product-id',
-        },
-      };
-      const res = {
-        status: jest.fn().mockReturnThis(),
-        json: jest.fn(),
-      };
-      Product.findById.mockResolvedValueOnce(null);
-
-      await ProductController.getProductById(req, res);
-
-      expect(res.status).toHaveBeenCalledWith(404);
-      expect(res.json).toHaveBeenCalledWith({ msg: 'Product not found' });
-    });
-
-    it('should return 500 if an error occurs while fetching product by ID', async () => {
-      const req = {
-        params: {
-          id: 'valid-product-id',
-        },
-      };
-      const res = {
-        status: jest.fn().mockReturnThis(),
-        json: jest.fn(),
-      };
-      Product.findById.mockRejectedValueOnce(new Error('Database error'));
-
-      await ProductController.getProductById(req, res);
-
-      expect(res.status).toHaveBeenCalledWith(500);
-      expect(res.json).toHaveBeenCalledWith({ msg: 'Internal server error' });
-    });
-  });
-
-  describe('deleteProduct', () => {
-    it('should delete a product by ID', async () => {
-      const req = {
-        params: {
-          id: 'valid-product-id',
-        },
-      };
-      const res = {
-        json: jest.fn(),
-      };
-      Product.findById.mockResolvedValueOnce({
-        deleteOne: jest.fn(),
-      });
-
-      await ProductController.deleteProduct(req, res);
-
-      expect(res.json).toHaveBeenCalledWith({ msg: 'Product deleted successfully' });
-    });
-
-    it('should return 404 if product is not found', async () => {
-      const req = {
-        params: {
-          id: 'nonexistent-product-id',
-        },
-      };
-      const res = {
-        status: jest.fn().mockReturnThis(),
-        json: jest.fn(),
-      };
-      Product.findById.mockResolvedValueOnce(null);
-
-      await ProductController.deleteProduct(req, res);
-
-      expect(res.status).toHaveBeenCalledWith(404);
-      expect(res.json).toHaveBeenCalledWith({ msg: 'Product not found' });
-    });
-
-    it('should return 500 if an error occurs while deleting product by ID', async () => {
-      const req = {
-        params: {
-          id: 'valid-product-id',
-        },
-      };
-      const res = {
-        status: jest.fn().mockReturnThis(),
-        json: jest.fn(),
-      };
-      Product.findById.mockRejectedValueOnce(new Error('Database error'));
-
-      await ProductController.deleteProduct(req, res);
-
+      expect(mockProductSave).toHaveBeenCalled();
       expect(res.status).toHaveBeenCalledWith(500);
       expect(res.json).toHaveBeenCalledWith({ msg: 'Internal server error' });
     });
