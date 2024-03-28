@@ -1,0 +1,659 @@
+{
+	"id": "d9aaf905-7dc9-462e-b878-ca556a8e4048",
+	"name": "Ethread",
+	"timestamp": "2024-03-26T12:45:41.539Z",
+	"collection_id": "31250987-2f9c30ac-3339-4ecd-9f40-ff7948359750",
+	"folder_id": 0,
+	"environment_id": "0",
+	"totalPass": 52,
+	"delay": 0,
+	"persist": true,
+	"status": "finished",
+	"startedAt": "2024-03-26T12:45:33.793Z",
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "6cdb1cf7-7e68-46b3-8fe8-530ada271c95",
+			"name": "New Request",
+			"url": "https://ethread.onrender.com/api/products",
+			"time": 237,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Response status code is 201": true,
+				"Name is a non-empty string": true,
+				"Price is a positive number": true,
+				"Quantity is a non-negative integer": true
+			},
+			"testPassFailCounts": {
+				"Response status code is 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Name is a non-empty string": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Price is a positive number": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Quantity is a non-negative integer": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				237
+			],
+			"allTests": [
+				{
+					"Response status code is 201": true,
+					"Name is a non-empty string": true,
+					"Price is a positive number": true,
+					"Quantity is a non-negative integer": true
+				}
+			]
+		},
+		{
+			"id": "aac801ff-4879-41dd-b6c3-b250ae746fc9",
+			"name": "New Request",
+			"url": "https://ethread.onrender.com/api/products",
+			"time": 1024,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Response status code is 200": true,
+				"Response has Content-Type header set to 'application/json; charset=utf-8'": true,
+				"Response is an array with at least one element": true,
+				"Price and quantity are non-negative numbers": true
+			},
+			"testPassFailCounts": {
+				"Response status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has Content-Type header set to 'application/json; charset=utf-8'": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response is an array with at least one element": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Price and quantity are non-negative numbers": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				1024
+			],
+			"allTests": [
+				{
+					"Response status code is 200": true,
+					"Response has Content-Type header set to 'application/json; charset=utf-8'": true,
+					"Response is an array with at least one element": true,
+					"Price and quantity are non-negative numbers": true
+				}
+			]
+		},
+		{
+			"id": "f49d838a-58af-4c6b-8738-e0795dce06c2",
+			"name": "New Request",
+			"url": "https://ethread.onrender.com/api/products/6601c681ca8319e517afddfc",
+			"time": 200,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Response status code is 200": true,
+				"Price is a non-negative number": true,
+				"Quantity is a non-negative integer": true
+			},
+			"testPassFailCounts": {
+				"Response status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Price is a non-negative number": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Quantity is a non-negative integer": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				200
+			],
+			"allTests": [
+				{
+					"Response status code is 200": true,
+					"Price is a non-negative number": true,
+					"Quantity is a non-negative integer": true
+				}
+			]
+		},
+		{
+			"id": "9b15866a-6f40-47eb-b6a5-287482f660c5",
+			"name": "New Request",
+			"url": "https://ethread.onrender.com/api/products/6601c681ca8319e517afddfc",
+			"time": 410,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Response status code is 200": true,
+				"Verify that the 'msg' field is a string": true,
+				"Price is a non-negative number": true,
+				"Quantity is a non-negative number": true
+			},
+			"testPassFailCounts": {
+				"Response status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verify that the 'msg' field is a string": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Price is a non-negative number": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Quantity is a non-negative number": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				410
+			],
+			"allTests": [
+				{
+					"Response status code is 200": true,
+					"Verify that the 'msg' field is a string": true,
+					"Price is a non-negative number": true,
+					"Quantity is a non-negative number": true
+				}
+			]
+		},
+		{
+			"id": "14e3b83b-0fb1-44a2-bed0-868749800540",
+			"name": "New Request",
+			"url": "https://ethread.onrender.com/api/products/6602b49a48dd97c7da9fcb49",
+			"time": 364,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Response status code is 200": true,
+				"Content-Type header is 'application/json'": true,
+				"Response has the required field 'msg'": true,
+				"The 'msg' field value should be a non-empty string": true,
+				"Response time is within an acceptable range": true
+			},
+			"testPassFailCounts": {
+				"Response status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Content-Type header is 'application/json'": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has the required field 'msg'": {
+					"pass": 1,
+					"fail": 0
+				},
+				"The 'msg' field value should be a non-empty string": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response time is within an acceptable range": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				364
+			],
+			"allTests": [
+				{
+					"Response status code is 200": true,
+					"Content-Type header is 'application/json'": true,
+					"Response has the required field 'msg'": true,
+					"The 'msg' field value should be a non-empty string": true,
+					"Response time is within an acceptable range": true
+				}
+			]
+		},
+		{
+			"id": "eca5185e-d34b-4094-b94f-038f256622fa",
+			"name": "New Request",
+			"url": "https://ethread.onrender.com/api/carts/add",
+			"time": 498,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Response status code is 201": true,
+				"Response has the required fields": true,
+				"Total price should be a non-negative number": true,
+				"The _id should be a non-empty string": true,
+				"Items is an array with at least one element": true
+			},
+			"testPassFailCounts": {
+				"Response status code is 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has the required fields": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Total price should be a non-negative number": {
+					"pass": 1,
+					"fail": 0
+				},
+				"The _id should be a non-empty string": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Items is an array with at least one element": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				498
+			],
+			"allTests": [
+				{
+					"Response status code is 201": true,
+					"Response has the required fields": true,
+					"Total price should be a non-negative number": true,
+					"The _id should be a non-empty string": true,
+					"Items is an array with at least one element": true
+				}
+			]
+		},
+		{
+			"id": "71386c06-e1d1-4038-b7a0-c7513ff51a14",
+			"name": "New Request",
+			"url": "https://ethread.onrender.com/api/carts/",
+			"time": 609,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Response status code is 200": true,
+				"Validate the presence of 'items' array in the response": true
+			},
+			"testPassFailCounts": {
+				"Response status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Validate the presence of 'items' array in the response": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				609
+			],
+			"allTests": [
+				{
+					"Response status code is 200": true,
+					"Validate the presence of 'items' array in the response": true
+				}
+			]
+		},
+		{
+			"id": "e3875bc4-a6be-450f-9e0e-9efd233ecdc7",
+			"name": "New Request",
+			"url": "https://ethread.onrender.com/api/carts/update",
+			"time": 696,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Response status code is 200": true,
+				"Response has the required fields": true,
+				"Verify that the 'items' array is present and contains at least one element": true
+			},
+			"testPassFailCounts": {
+				"Response status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has the required fields": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verify that the 'items' array is present and contains at least one element": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				696
+			],
+			"allTests": [
+				{
+					"Response status code is 200": true,
+					"Response has the required fields": true,
+					"Verify that the 'items' array is present and contains at least one element": true
+				}
+			]
+		},
+		{
+			"id": "0a0e35e8-d75f-4b05-8630-f603f0d23878",
+			"name": "New Request",
+			"url": "https://ethread.onrender.com/api/carts/6602b6207226c4690afb358c",
+			"time": 167,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Response status code is 200": true,
+				"Response content type is application/json": true,
+				"Response includes a message": true,
+				"The deleted cart ID should not be empty": true
+			},
+			"testPassFailCounts": {
+				"Response status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response content type is application/json": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response includes a message": {
+					"pass": 1,
+					"fail": 0
+				},
+				"The deleted cart ID should not be empty": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				167
+			],
+			"allTests": [
+				{
+					"Response status code is 200": true,
+					"Response content type is application/json": true,
+					"Response includes a message": true,
+					"The deleted cart ID should not be empty": true
+				}
+			]
+		},
+		{
+			"id": "ae627aeb-bf7e-4429-b926-321bc372a6de",
+			"name": "New Request",
+			"url": "https://ethread.onrender.com/api/carts/6602b6207226c4690afb3589/items/6602b6207226c4690afb35c4",
+			"time": 560,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Response status code is 200": true,
+				"Response has required fields": true,
+				"Items array in the cart is not empty": true,
+				"Each item in the items array has the required fields": true
+			},
+			"testPassFailCounts": {
+				"Response status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has required fields": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Items array in the cart is not empty": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Each item in the items array has the required fields": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				560
+			],
+			"allTests": [
+				{
+					"Response status code is 200": true,
+					"Response has required fields": true,
+					"Items array in the cart is not empty": true,
+					"Each item in the items array has the required fields": true
+				}
+			]
+		},
+		{
+			"id": "793e764c-7c4c-4904-b959-cf2ae84bd639",
+			"name": "New Request",
+			"url": "https://ethread.onrender.com/api/checkouts/checkout",
+			"time": 307,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Response status code is 200": true,
+				"Response has the required fields - success and message": true,
+				"Success is a boolean value": true,
+				"Message is a non-empty string": true,
+				"Response time is less than 500ms": true
+			},
+			"testPassFailCounts": {
+				"Response status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has the required fields - success and message": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Success is a boolean value": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Message is a non-empty string": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response time is less than 500ms": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				307
+			],
+			"allTests": [
+				{
+					"Response status code is 200": true,
+					"Response has the required fields - success and message": true,
+					"Success is a boolean value": true,
+					"Message is a non-empty string": true,
+					"Response time is less than 500ms": true
+				}
+			]
+		},
+		{
+			"id": "f088cfac-dcad-4882-81e9-07a31cabd8ea",
+			"name": "New Request",
+			"url": "https://ethread.onrender.com/api/reviews",
+			"time": 268,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Response status code is 201": true,
+				"Response has the required fields": true,
+				"Product ID is a non-empty string": true,
+				"Rating should be a number between 0 and 5": true,
+				"Comment is a non-empty string": true
+			},
+			"testPassFailCounts": {
+				"Response status code is 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has the required fields": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Product ID is a non-empty string": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Rating should be a number between 0 and 5": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Comment is a non-empty string": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				268
+			],
+			"allTests": [
+				{
+					"Response status code is 201": true,
+					"Response has the required fields": true,
+					"Product ID is a non-empty string": true,
+					"Rating should be a number between 0 and 5": true,
+					"Comment is a non-empty string": true
+				}
+			]
+		},
+		{
+			"id": "dcaaf282-5086-4cde-8af9-e0d02fc49fe5",
+			"name": "New Request",
+			"url": "https://ethread.onrender.com/api/reviews/6601c8d9ca8319e517afde03",
+			"time": 840,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Response status code is 200": true,
+				"Response has content type of application/json": true,
+				"Response is an array with at least one element": true,
+				"Rating is a non-negative integer": true
+			},
+			"testPassFailCounts": {
+				"Response status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has content type of application/json": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response is an array with at least one element": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Rating is a non-negative integer": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				840
+			],
+			"allTests": [
+				{
+					"Response status code is 200": true,
+					"Response has content type of application/json": true,
+					"Response is an array with at least one element": true,
+					"Rating is a non-negative integer": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 6180,
+	"collection": {
+		"requests": [
+			{
+				"id": "6cdb1cf7-7e68-46b3-8fe8-530ada271c95",
+				"method": "POST"
+			},
+			{
+				"id": "aac801ff-4879-41dd-b6c3-b250ae746fc9",
+				"method": "GET"
+			},
+			{
+				"id": "f49d838a-58af-4c6b-8738-e0795dce06c2",
+				"method": "GET"
+			},
+			{
+				"id": "9b15866a-6f40-47eb-b6a5-287482f660c5",
+				"method": "PUT"
+			},
+			{
+				"id": "14e3b83b-0fb1-44a2-bed0-868749800540",
+				"method": "DELETE"
+			},
+			{
+				"id": "eca5185e-d34b-4094-b94f-038f256622fa",
+				"method": "POST"
+			},
+			{
+				"id": "71386c06-e1d1-4038-b7a0-c7513ff51a14",
+				"method": "GET"
+			},
+			{
+				"id": "e3875bc4-a6be-450f-9e0e-9efd233ecdc7",
+				"method": "PUT"
+			},
+			{
+				"id": "0a0e35e8-d75f-4b05-8630-f603f0d23878",
+				"method": "DELETE"
+			},
+			{
+				"id": "ae627aeb-bf7e-4429-b926-321bc372a6de",
+				"method": "DELETE"
+			},
+			{
+				"id": "793e764c-7c4c-4904-b959-cf2ae84bd639",
+				"method": "POST"
+			},
+			{
+				"id": "f088cfac-dcad-4882-81e9-07a31cabd8ea",
+				"method": "POST"
+			},
+			{
+				"id": "dcaaf282-5086-4cde-8af9-e0d02fc49fe5",
+				"method": "GET"
+			}
+		]
+	}
+}
