@@ -1,9 +1,0 @@
-language: node_js
-
-before_script:
-  - node --version
-  - npm --version
-  - $(npm bin)/newman --version  # Use $(npm bin) to run locally installed npm binaries
-
-script:
-  - $(npm bin)/newman run tests/Ethread.postman_collection.json

@@ -1,7 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
-const mongoose = require('mongoose');
 const productRoutes = require('./routes/productRoutes');
 const cartRoutes = require('./routes/cartRoutes');
 const reviewRoutes = require('./routes/reviewRoutes');
