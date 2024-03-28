@@ -1,103 +1,103 @@
-import { describe, beforeAll, afterAll, it, expect } from "vitest";
-const mongoose = require('mongoose');
 const Review = require('../../models/review');
 const ReviewController = require('../../controllers/reviewController');
 
+// Mock the Review model
+jest.mock('../../models/review');
+
 describe('ReviewController', () => {
-  // Connect to the MongoDB database before running tests
-  beforeAll(async () => {
-    await mongoose.connect('mongodb+srv://hamzasufian2014:DafBrscdZELfxbvc@cluster0.nmmyd8v.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-  });
-
-  // Disconnect from the MongoDB database after running tests
-  afterAll(async () => {
-    await mongoose.connection.close();
-  });
-
   describe('createReview', () => {
     it('should create a new review', async () => {
-      const req = {
+      const mockReq = {
         body: {
-          productId: new mongoose.Types.ObjectId(),
+          productId: 'mockProductId',
           rating: 4,
-          comment: 'This product is great!'
-        }
+          comment: 'Great product!',
+        },
       };
-      const res = {
+      const mockRes = {
         status: jest.fn().mockReturnThis(),
-        json: jest.fn()
+        json: jest.fn(),
       };
+      const mockSave = jest.fn().mockResolvedValueOnce({
+        product: 'mockProductId',
+        rating: 4,
+        comment: 'Great product!',
+      });
+      Review.mockReturnValueOnce({
+        save: mockSave,
+      });
 
-      await ReviewController.createReview(req, res);
+      await ReviewController.createReview(mockReq, mockRes);
 
-      expect(res.status).toHaveBeenCalledWith(201);
-      expect(res.json).toHaveBeenCalledWith(expect.objectContaining({
-        product: req.body.productId,
-        rating: req.body.rating,
-        comment: req.body.comment
+      expect(mockSave).toHaveBeenCalled();
+      expect(mockRes.status).toHaveBeenCalledWith(201);
+      expect(mockRes.json).toHaveBeenCalledWith(expect.objectContaining({
+        product: 'mockProductId',
+        rating: 4,
+        comment: 'Great product!',
       }));
     });
 
-    it('should handle errors and return 500 status', async () => {
-      const req = {
+    it('should return 500 if an error occurs during review creation', async () => {
+      const mockReq = {
         body: {
-          productId: new mongoose.Types.ObjectId(),
+          productId: 'mockProductId',
           rating: 4,
-          comment: 'This product is great!'
-        }
+          comment: 'Great product!',
+        },
       };
-      const res = {
+      const mockRes = {
         status: jest.fn().mockReturnThis(),
-        json: jest.fn()
+        json: jest.fn(),
       };
+      Review.mockReturnValueOnce({
+        save: jest.fn().mockRejectedValueOnce(new Error('Database error')),
+      });
 
-      // Mock an error during review save
-      jest.spyOn(Review.prototype, 'save').mockRejectedValueOnce(new Error('Some error'));
+      await ReviewController.createReview(mockReq, mockRes);
 
-      await ReviewController.createReview(req, res);
-
-      expect(res.status).toHaveBeenCalledWith(500);
-      expect(res.json).toHaveBeenCalledWith({ msg: 'Internal server error' });
+      expect(mockRes.status).toHaveBeenCalledWith(500);
+      expect(mockRes.json).toHaveBeenCalledWith({ msg: 'Internal server error' });
     });
   });
 
   describe('getReviewsByProduct', () => {
-    it('should get reviews for a product', async () => {
-      const req = {
+    it('should return reviews for a specified product', async () => {
+      const mockReq = {
         params: {
-          productId: new mongoose.Types.ObjectId()
-        }
+          productId: 'mockProductId',
+        },
       };
-      const res = {
-        json: jest.fn()
+      const mockRes = {
+        json: jest.fn(),
       };
+      const mockReviews = [
+        { product: 'mockProductId', rating: 4, comment: 'Great product!' },
+        { product: 'mockProductId', rating: 5, comment: 'Amazing product!' },
+      ];
+      Review.find.mockResolvedValueOnce(mockReviews);
 
-      await ReviewController.getReviewsByProduct(req, res);
+      await ReviewController.getReviewsByProduct(mockReq, mockRes);
 
-      expect(res.json).toHaveBeenCalled();
+      expect(mockRes.json).toHaveBeenCalledWith(mockReviews);
     });
 
-    it('should handle errors and return 500 status', async () => {
-      const req = {
+    it('should return 500 if an error occurs while fetching reviews', async () => {
+      const mockReq = {
         params: {
-          productId: new mongoose.Types.ObjectId()
-        }
+          productId: 'mockProductId',
+        },
       };
-      const res = {
+      const mockRes = {
         status: jest.fn().mockReturnThis(),
-        json: jest.fn()
+        json: jest.fn(),
       };
+      Review.find.mockRejectedValueOnce(new Error('Database error'));
 
-      // Mock an error during review find
-      jest.spyOn(Review, 'find').mockRejectedValueOnce(new Error('Some error'));
+      await ReviewController.getReviewsByProduct(mockReq, mockRes);
 
-      await ReviewController.getReviewsByProduct(req, res);
-
-      expect(res.status).toHaveBeenCalledWith(500);
-      expect(res.json).toHaveBeenCalledWith({ msg: 'Internal server error' });
+      expect(mockRes.status).toHaveBeenCalledWith(500);
+      expect(mockRes.json).toHaveBeenCalledWith({ msg: 'Internal server error' });
     });
   });
 });
