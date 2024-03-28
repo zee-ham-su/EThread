@@ -1,6 +1,6 @@
 import {describe, beforeAll, afterAll, it, expect} from "vitest";
 const mongoose = require('mongoose');
-const Product = require('../../models/Product'); // Directory of product.js
+const Product = require('../../models/product'); // Directory of product.js
 
 describe('Product model', () => {
   // Connect to the MongoDB database before running tests
