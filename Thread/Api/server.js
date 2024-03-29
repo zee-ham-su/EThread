@@ -6,7 +6,6 @@ const cartRoutes = require('./routes/cartRoutes');
 const reviewRoutes = require('./routes/reviewRoutes');
 const checkOutRoutes = require('./routes/checkOutRoutes');
 const path = require('path');
-const cors = require('cors');
 
 require('dotenv').config();
 
@@ -14,7 +13,6 @@ const connectDB = require('./mondb.js');
 connectDB();
 
 app.use(bodyParser.json());
-app.use(cors());
 app.use(express.json());
 
 app.use('/images', express.static(path.join(__dirname, 'public', 'images')));
