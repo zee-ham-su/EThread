@@ -4,6 +4,11 @@ const ReviewController = {
   async createReview(req, res) {
     try {
       const { productId, rating, comment } = req.body;
+      
+      // Check if rating is within the range of 1 to 5
+      if (rating < 1 || rating > 5) {
+          return res.status(400).json({ message: 'Rating must be between 1 and 5' });
+      }
 
       // Create a new review
       const review = new Review({
@@ -21,6 +26,7 @@ const ReviewController = {
     }
   },
 
+  // Get all reviews for a specific product
   async getReviewsByProduct(req, res) {
     try {
       const productId = req.params.productId;

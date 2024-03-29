@@ -28,7 +28,7 @@
     "description": "Artisan-crafted bag showcasing vibrant print fabric, combining style with traditional craftsmanship",
     "price": "20.99",
     "quantity": "4",
-    "image": "public/images/1711578283781_handmade print fabric bag.webp"
+    "image": "public/images/1711578283781_handmade print fabric bag.webp" // // The image file should be included as part of the request body using multipart/form-data
 }
 ```
 

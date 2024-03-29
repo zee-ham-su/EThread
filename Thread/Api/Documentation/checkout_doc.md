@@ -29,7 +29,7 @@
 ## Response Example and Schema
 
 - Content-Type: application/json
-- Status: 200
+- Status: 201
 
 ```json
 {
