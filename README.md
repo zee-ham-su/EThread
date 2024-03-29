@@ -11,9 +11,26 @@
 > ### **TechThreadsGhana** is an API e-commerce platform dedicated to showcasing and promoting the vibrant tapestry of Ghanaian fashion and apparel.
 
 ## TECHNOLOGY AND ARCHITECTURE USED
-1. Backend: node.js, express.js, vitest & jest.
-2. Database:  MongoDB.
-3. Architecture: RESTful API architecture for seamless communication between frontend and backend.
+
+1. Backend: 
+
+- node.js
+- express.js 
+- vitest & 
+- jest.
+
+2. Database:  
+
+- MongoDB Atlas 
+- Mongoose
+
+3. Architecture: API follows RESTful principles, with clear and intuitive endpoint structure for seamless communication between client and server
+Examples below:
+
+- /api/products: Endpoint for managing products (GET, POST,...)
+- /api/carts: Endpoint for managing carts (GET, POST,...)
+- /api/checkouts: Endpoint for managing checkouts (POST,...)
+- /api/reviews: Endpoint for managing reviews (GET, POST,...)
 
 ## Installation
 1. Fork the project
