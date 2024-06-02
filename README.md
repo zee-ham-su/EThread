@@ -31,6 +31,8 @@ Examples below:
 - /api/carts: Endpoint for managing carts (GET, POST,...)
 - /api/checkouts: Endpoint for managing checkouts (POST,...)
 - /api/reviews: Endpoint for managing reviews (GET, POST,...)
+- ![TechThreadsGhana Architecture-1 4](https://github.com/zee-ham-su/EThread/assets/125477741/962661b1-1755-4405-8fc7-763dbfc087cf)
+
 
 ## Installation
 1. Fork the project
@@ -46,3 +48,5 @@ Examples below:
 2. Cart: create, update and delete.
 3. Checkout
 4. Review: create, update and delete.
+
+To be continued . . .
