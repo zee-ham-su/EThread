@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const CartController = {
   addToCart: async (req, res) => {
     try {
-      const { items } = req.body;
+      const { items } = req.body; // 
 
       console.log('Adding to cart:', items);
 

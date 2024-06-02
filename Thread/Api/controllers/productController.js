@@ -24,11 +24,7 @@ const ProductController = {
             console.error('Error uploading file', err);
           return res.status(500).json({ msg: 'Internal server error' });
         }
-
-        console.log('File uploaded successfully');
-        console.log('req.file:', req.file);
-        console.log('req.body:', req.body);
-
+        
         const { name, description, price, quantity } = req.body;
         const imagePath = req.file ? req.file.path : '../public/images/default.jpg';
 
